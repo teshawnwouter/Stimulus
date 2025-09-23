@@ -31,10 +31,6 @@ public class KeysScript : MonoBehaviour
                 noteCounter.notes[0].PlayedNote();
                 noteCounter.NotesPlayed(1);
             }
-            else if (!noteCounter.notes[0].perfectPlay || !noteCounter.notes[0].goodPlay || noteKey != noteCounter.notes[0].notekey)
-            {
-                Debug.Log("failed");
-            }
         }
 
         if (Input.GetKeyUp(noteKey))
