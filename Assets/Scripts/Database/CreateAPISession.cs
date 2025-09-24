@@ -3,17 +3,20 @@ using UnityEngine.Networking;
 using System;
 using System.Text;
 using System.Collections;
+using static Registering;
 
 public class CreateSessionApi : MonoBehaviour
 {
+    [SerializeField] private LoginRequest loginuser;
+
     [Serializable]
-    private class CreateSessionRequest
+    public class CreateSessionRequest
     {
         public string username;
     }
 
     [Serializable]
-    private class CreateSessionResponse
+    public class CreateSessionResponse
     {
         public bool ok;
         public int session_id;
@@ -22,9 +25,9 @@ public class CreateSessionApi : MonoBehaviour
 
     private const string CreateSessionUrl = "http://localhost:5173/api/create-session";
 
-    public IEnumerator CreateSession(string username)
+    public IEnumerator CreateSession()
     {
-        CreateSessionRequest reqObj = new CreateSessionRequest { username = username };
+        CreateSessionRequest reqObj = new CreateSessionRequest { username = loginuser.username };
         string json = JsonUtility.ToJson(reqObj);
 
         UnityWebRequest www = new UnityWebRequest(CreateSessionUrl, "POST");
@@ -44,6 +47,7 @@ public class CreateSessionApi : MonoBehaviour
                 if (res != null && res.ok)
                 {
                     Debug.Log($"Session created. session_id = {res.session_id}");
+                    // goed
                 }
                 else
                 {
@@ -77,6 +81,6 @@ public class CreateSessionApi : MonoBehaviour
     private void Start()
     {
         // Hardcoded gebruikersnaam voor het voorbeeld
-        StartCoroutine(CreateSession("Noor"));
+        //StartCoroutine(CreateSession("Jan"));
     }
 }

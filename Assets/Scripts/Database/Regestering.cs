@@ -3,43 +3,30 @@ using System.Collections;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
-
-public class SubmitScoreApi : MonoBehaviour
+public class Registering : MonoBehaviour
 {
     [Serializable]
-    private class SubmitScoreRequest
+    public class LoginRequest
     {
-        public int session_id;
-        public int score;
-        public int perfectNotes;
-        public int goodNotes;
-        public int badNotes;
+        public string username;
     }
 
     [Serializable]
-    private class SubmitScoreResponse
+    private class LoginResponse
     {
         public bool ok;
-        public int score_id;
+        public int user_Id;
         public string error;
     }
 
-    private const string SubmitScoreUrl = "http://localhost:5173/api/submit-score";
+    private const string CreateSessionUrl = "http://localhost:5173/api/register-user";
 
-    public IEnumerator SubmitScore(int sessionId, int score, int perfectNotes, int goodnNotes, int badNotes)
+    public IEnumerator RegisterUser(string username)
     {
-        SubmitScoreRequest reqObj = new SubmitScoreRequest
-        {
-            session_id = sessionId,
-            score = score,
-            perfectNotes = perfectNotes,
-            goodNotes = goodnNotes,
-            badNotes = badNotes
-        };
-
+        LoginRequest reqObj = new LoginRequest { username = username };
         string json = JsonUtility.ToJson(reqObj);
 
-        UnityWebRequest www = new UnityWebRequest(SubmitScoreUrl, "POST");
+        UnityWebRequest www = new UnityWebRequest(CreateSessionUrl, "POST");
         www.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
         www.downloadHandler = new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
@@ -52,10 +39,10 @@ public class SubmitScoreApi : MonoBehaviour
             string text = www.downloadHandler.text;
             try
             {
-                SubmitScoreResponse res = JsonUtility.FromJson<SubmitScoreResponse>(text);
+                LoginResponse res = JsonUtility.FromJson<LoginResponse>(text);
                 if (res != null && res.ok)
                 {
-                    Debug.Log($"Score saved. score_id = {res.score_id}");
+                    Debug.Log($"User Added. session_id = {res.user_Id}");
                 }
                 else
                 {
@@ -73,7 +60,7 @@ public class SubmitScoreApi : MonoBehaviour
             try
             {
                 string text = www.downloadHandler.text;
-                SubmitScoreResponse res = JsonUtility.FromJson<SubmitScoreResponse>(text);
+                LoginResponse res = JsonUtility.FromJson<LoginResponse>(text);
                 if (res != null && !string.IsNullOrEmpty(res.error))
                 {
                     Debug.LogError($"The server provided the following error message: {res.error}");
@@ -88,7 +75,9 @@ public class SubmitScoreApi : MonoBehaviour
 
     private void Start()
     {
-        // int sessionId = 3;
-        // StartCoroutine(SubmitScore(sessionId, 2552, 72, 64.2f));
+        // Hardcoded gebruikersnaam voor het voorbeeld
+        //StartCoroutine(CreateSession("Jan"));
     }
 }
+
+
