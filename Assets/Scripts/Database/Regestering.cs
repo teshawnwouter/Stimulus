@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 public class Registering : MonoBehaviour
 {
+    public CreateSessionApi api;
+
     [Serializable]
     public class LoginRequest
     {
@@ -19,14 +21,14 @@ public class Registering : MonoBehaviour
         public string error;
     }
 
-    private const string CreateSessionUrl = "http://localhost:5173/api/register-user";
+    private const string CreateUserUrl = "http://localhost:5173/api/register-user";
 
     public IEnumerator RegisterUser(string username)
-    {
+    { 
         LoginRequest reqObj = new LoginRequest { username = username };
         string json = JsonUtility.ToJson(reqObj);
 
-        UnityWebRequest www = new UnityWebRequest(CreateSessionUrl, "POST");
+        UnityWebRequest www = new UnityWebRequest(CreateUserUrl, "POST");
         www.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
         www.downloadHandler = new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
@@ -71,12 +73,7 @@ public class Registering : MonoBehaviour
                 Debug.LogError($"Failed to parse JSON: {e.Message}");
             }
         }
-    }
-
-    private void Start()
-    {
-        // Hardcoded gebruikersnaam voor het voorbeeld
-        //StartCoroutine(CreateSession("Jan"));
+        yield return StartCoroutine(api.CreateSession(username));
     }
 }
 

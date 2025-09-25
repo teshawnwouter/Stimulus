@@ -85,10 +85,4 @@ public class SubmitScoreApi : MonoBehaviour
             }
         }
     }
-
-    private void Start()
-    {
-        // int sessionId = 3;
-        // StartCoroutine(SubmitScore(sessionId, 2552, 72, 64.2f));
-    }
 }

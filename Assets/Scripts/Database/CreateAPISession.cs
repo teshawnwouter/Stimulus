@@ -7,8 +7,6 @@ using static Registering;
 
 public class CreateSessionApi : MonoBehaviour
 {
-    [SerializeField] private LoginRequest loginuser;
-
     [Serializable]
     public class CreateSessionRequest
     {
@@ -25,9 +23,12 @@ public class CreateSessionApi : MonoBehaviour
 
     private const string CreateSessionUrl = "http://localhost:5173/api/create-session";
 
-    public IEnumerator CreateSession()
+    public static int session_number = -1;
+
+    public IEnumerator CreateSession(string playername)
     {
-        CreateSessionRequest reqObj = new CreateSessionRequest { username = loginuser.username };
+        CreateSessionRequest reqObj = new CreateSessionRequest { username = playername };
+        Debug.Log(reqObj.username);
         string json = JsonUtility.ToJson(reqObj);
 
         UnityWebRequest www = new UnityWebRequest(CreateSessionUrl, "POST");
@@ -47,6 +48,7 @@ public class CreateSessionApi : MonoBehaviour
                 if (res != null && res.ok)
                 {
                     Debug.Log($"Session created. session_id = {res.session_id}");
+                    session_number = res.session_id;
                     // goed
                 }
                 else
@@ -76,11 +78,5 @@ public class CreateSessionApi : MonoBehaviour
                 Debug.LogError($"Failed to parse JSON: {e.Message}");
             }
         }
-    }
-
-    private void Start()
-    {
-        // Hardcoded gebruikersnaam voor het voorbeeld
-        //StartCoroutine(CreateSession("Jan"));
     }
 }
