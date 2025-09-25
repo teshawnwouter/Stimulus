@@ -11,8 +11,8 @@ public class SubmitScoreApi : MonoBehaviour
     {
         public int session_id;
         public int score;
-        public int perfectNotes;
-        public int goodNotes;
+        public int goldNotes;
+        public int normalNotes;
         public int badNotes;
     }
 
@@ -26,14 +26,14 @@ public class SubmitScoreApi : MonoBehaviour
 
     private const string SubmitScoreUrl = "http://localhost:5173/api/submit-score";
 
-    public IEnumerator SubmitScore(int sessionId, int score, int perfectNotes, int goodnNotes, int badNotes)
+    public IEnumerator SubmitScore(int sessionId, int score, int goldNotes, int normalNotes, int badNotes)
     {
         SubmitScoreRequest reqObj = new SubmitScoreRequest
         {
             session_id = sessionId,
             score = score,
-            perfectNotes = perfectNotes,
-            goodNotes = goodnNotes,
+            goldNotes = goldNotes,
+            normalNotes = normalNotes,
             badNotes = badNotes
         };
 

@@ -5,6 +5,8 @@ public class Score : MonoBehaviour
 {
     public int score;
 
+    public int gold, normal, bad;
+
     [SerializeField] private SubmitScoreApi scoreApi;
     [SerializeField] private CreateSessionApi sessionApi;
 
@@ -21,9 +23,9 @@ public class Score : MonoBehaviour
 
     public void CopyResults()
     {
-        if (score > 25)
+        if (bad > 5)
         {
-            StartCoroutine(scoreApi.SubmitScore(CreateSessionApi.session_number, score, 100, 2, 2));
+            StartCoroutine(scoreApi.SubmitScore(CreateSessionApi.session_number, score, gold, normal, bad));
             SceneManager.LoadScene("LoginScreen");
         }
     }

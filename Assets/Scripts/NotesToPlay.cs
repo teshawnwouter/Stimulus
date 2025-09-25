@@ -28,6 +28,7 @@ public class NotesToPlay : MonoBehaviour
         if (collision.collider.CompareTag("Despawner"))
         {
             score.AddScore(-5);
+            score.bad++;
             counter.notes.Remove(this);
             Destroy(this.gameObject);
         }
@@ -58,6 +59,21 @@ public class NotesToPlay : MonoBehaviour
 
     public void PlayedNote()
     {
+        if (this.gameObject.CompareTag("Normal"))
+        {
+            Debug.Log("normal");
+            score.normal++;
+        }
+        if (this.gameObject.CompareTag("Gold"))
+        {
+            Debug.Log("gold");
+            score.gold++;
+        }
+        if (this.gameObject.CompareTag("Bad"))
+        {
+            Debug.Log("Bad");
+            score.bad++;
+        }
         counter.notes.Remove(this);
         Destroy(this.gameObject);
     }

@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &91060519
 Transform:
   m_ObjectHideFlags: 0
@@ -1798,6 +1798,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
+  gold: 0
+  normal: 0
+  bad: 0
   scoreApi: {fileID: 1204748471}
   sessionApi: {fileID: 0}
 --- !u!4 &1204748470
@@ -2099,6 +2102,8 @@ MonoBehaviour:
   - {fileID: 704810084}
   notePrefab:
   - {fileID: 6906878351575901531, guid: fb58865aaffc385409b60c2215258ac6, type: 3}
+  - {fileID: 6906878351575901531, guid: 2c2832b53c68ade46aeb5212f67b8bf2, type: 3}
+  - {fileID: 6906878351575901531, guid: 1c73a37745230db478ef283105b83b23, type: 3}
   spawnedNote: {fileID: 0}
   spawnInterval: 2
 --- !u!4 &1471630266
