@@ -5,6 +5,7 @@ public class KeysScript : MonoBehaviour
     [Header("visuals")]
     [SerializeField] private GameObject pressedKey;
     public KeyCode noteKey;
+
     [SerializeField] private NoteCounter noteCounter;
     [SerializeField] private Score score;
 
@@ -30,6 +31,11 @@ public class KeysScript : MonoBehaviour
                 score.AddScore(noteCounter.notes[0].pointsGiven * 2);
                 noteCounter.notes[0].PlayedNote();
                 noteCounter.NotesPlayed(1);
+            }else if (!noteCounter.notes[0].perfectPlay && !noteCounter.notes[0].goodPlay && noteKey == noteCounter.notes[0].notekey)
+            {
+                noteCounter.notes[0].PlayedNote();
+                noteCounter.NotesPlayed(1);
+                score.bad++;
             }
         }
 

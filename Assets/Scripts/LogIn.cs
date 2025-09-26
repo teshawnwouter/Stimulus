@@ -2,7 +2,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class LogIn : MonoBehaviour
 {
@@ -18,8 +17,7 @@ public class LogIn : MonoBehaviour
     {
         yield return StartCoroutine(register.RegisterUser(_inputField.text));
 
-                SceneManager.LoadScene("MainGame");
-
+        SceneManager.LoadScene("MainGame");
     }
 
 }
